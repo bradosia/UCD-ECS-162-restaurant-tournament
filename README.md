@@ -4,8 +4,27 @@ Built on top of the Glitch Websocket chat app. Helps pick out restaurants to go 
 
 ## Challenges
 
-I had to secure the API Key and also discovered glitch uses a secure HTTPS connection making regular websockets not possible. 
-This is challenging because I use insecure sockets on my computer for testing.
+I had to secure the API Key and also discovered glitch uses a secure HTTPS connection making websockets not work until I added a fix.
+This project was a lot more work than I thought for one person. I thought groups were assigned, but no one grouped up with me. 
+This project turned out okay. It does the what is on the specs.
+
+## How to use
+
+It works just as described on the specs for the restaurant tournament option.
+
+1. Host creates a game room and gives the link to friends
+2. Then host chooses restaurants using yelp search to find restaurants the friends are deciding on.
+3. After beginning the game, the server creates random pairs of restaurants to vote on. 
+Every restaurant will show up at least once. 
+4. Winner appears after all restaurants have a chance to be voted on.
+
+## Features
+
+* Multiple room support
+* Infinite users in a room
+* Mobile UI
+* API request caching to reduce API calls
+* Supports many more locations than the two in the drop down menu 
 
 ## Yelp Fusion API
 
