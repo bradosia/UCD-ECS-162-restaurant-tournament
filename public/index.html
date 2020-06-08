@@ -1,0 +1,110 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Websockets example</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A cool thing made with Glitch">
+  <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="/reset.css">
+  <!-- import the webpage's stylesheet -->
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+  <!-- import the webpage's client-side javascript file -->
+  <script src="/script.js" defer></script>
+</head>
+
+<body>
+  <div class="page_wrapper">
+
+    <!-- UI: start game -->
+    <div class="wrap" id="startUI">
+      <header>
+        <div class="mobileWrapper">
+          <h1>Restaurant Tournament</h1>
+        </div>
+      </header>
+      <main>
+        <div class="mobileWrapper">
+          <button class="new_game_btn" id="startGame">Start new game</button>
+        </div>
+      </main>
+    </div>
+
+    <!-- UI: friend waiting -->
+    <div class="wrap" id="friendStartUI">
+      <header>
+        <div class="mobileWrapper">
+          <h1>Restaurant Tournament</h1>
+        </div>
+      </header>
+      <main>
+        <div class="mobileWrapper">
+          <p id="friendWaitingMessage">Waiting...</p>
+        </div>
+      </main>
+    </div>
+
+    <!-- UI: setup game -->
+    <div id="setupUI">
+      <main>
+        <div class="mobileWrapper">
+          <p>Location:</p>
+          <input type="text" id="locationInput" list="locationList" />
+          <datalist id="locationList">
+            <option value="san francisco, ca">
+            <option value="davis, ca">
+          </datalist>
+          <p>Keywords:</p>
+          <input type="text" id="keywordInput" list="keywordList" />
+          <datalist id="keywordList">
+          </datalist>
+          <button id="searchButton">Search</button>
+          <button id="beginGameButton">Begin Tournament</button>
+          <h2>Restaurants:</h2>
+          <p>Select restaurants you want to compete by selecting the heart icon.</p>
+          <!--
+          <input class="checkbox" type="checkbox" id="selectAll" name="selectAll" value="all">
+          <label for="selectAll">Select all</label>
+        -->
+        </div>
+        <div class="restaurantContainer" id="restaurantSearchContainer"></div>
+      </main>
+    </div>
+
+    <!-- UI: play game -->
+    <div id="playUI">
+      <main>
+        <h2 id="roundHeader">Round #</h2>
+        <p>Select restaurants you like more by clicking the heart icon.</p>
+        <div class="restaurantContainer" id="restaurantContainer"></div>
+      </main>
+    </div>
+
+    <footer>
+      <div class="mobileWrapper">
+        <p>
+          Made with <a href="https://glitch.com">Glitch</a>!
+        </p>
+      </div>
+    </footer>
+
+  </div> <!-- END page_wrapper -->
+
+  <div class="popup" id="popup">
+    <div class="center">
+      <h2>Share game room:</h2>
+      <p>/</p>
+    </div>
+    <div class="close"></div>
+  </div>
+  <div class="popup_shade" id="popup_shade"></div>
+</body>
+
+</html>
