@@ -66,6 +66,8 @@ connection.onmessage = (event) => {
     startGameReturn();
   } else if (msgObj.type == "give_round") {
     giveRound(msgObj);
+  } else if (msgObj.type == "give_winner") {
+    giveWinner(msgObj);
   } else {
     console.log("WARNING: Unkown type: type=" + msgObj.type);
     console.log(msgObj);
@@ -201,6 +203,30 @@ function voteRound(node) {
       "id": id
     }));
   }
+}
+
+function giveWinner(responseObj) {
+  let containerNode = document.getElementById("restaurantContainer");
+  let headerNode = document.getElementById("roundHeader");
+  let messageNode = document.getElementById("roundMsg");
+  headerNode.innerHTML = "WINNER!";
+  messageNode.innerHTML = "";
+  // terms
+  let busIdList = responseObj.idList;
+  businessTable = responseObj.businessTable;
+  htmlArray = [];
+  for (const busId of busIdList) {
+    busObj = businessTable[busId];
+    htmlArray.push(restaurantTile({
+      "image_url": busObj.image_url,
+      "name": busObj.name,
+      "price": busObj.price,
+      "rating": busObj.rating,
+      "address": busObj.location.display_address.join("<br />"),
+      "id": busObj.id
+    }));
+  }
+  containerNode.innerHTML = htmlArray.join("");
 }
 
 // show popup

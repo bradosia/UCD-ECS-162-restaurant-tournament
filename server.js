@@ -268,12 +268,23 @@ function voteRound(ws, msgObj) {
     let roomObj = roomData[roomId];
     let businessList = roomObj.businessList;
     let voteTable = roomObj.voteTable;
-    if(voteTable[msgObj.id]){
-      voteTable[msgObj.id]++;
-    } else {
-      voteTable[msgObj.id] = 0;
+    // check voted already
+    if (!roomObj.votedList.includes(userId)) {
+      roomObj.votedList.push(userId);
+      console.log("vote: " + msgObj.id);
+      if (msgObj.id in voteTable) {
+        voteTable[msgObj.id]++;
+      } else {
+        voteTable[msgObj.id] = 1;
+      }
+      // all votes done?
+      let votesNum = roomObj.votedList.length;
+      let userNum = roomObj.userList.length;
+      if (votesNum >= userNum) {
+        roomObj.votedList = [];
+        socketgiveRound(roomId);
+      }
     }
-    console.log("vote: " + msgObj.id);
   }
 }
 
@@ -309,9 +320,32 @@ function socketgiveRound(roomId) {
   let roomObj = roomData[roomId];
   let businessList = roomObj.businessList;
   let businessTable = roomObj.businessTable;
+  let voteTable = roomObj.voteTable;
   roomObj.votedList = [];
   if (roomObj.roundNum >= roomObj.keyPairList.length) {
     // decide winner
+    console.log("-----decide winner----------");
+    console.log(voteTable);
+    busIdWinner = null;
+    busIdVotes = -1;
+    for (const busId in voteTable) {
+      let voteNum = voteTable[busId];
+      if (voteNum > busIdVotes) {
+        busIdWinner = busId;
+      }
+    }
+    console.log("WINNER: " + busIdWinner);
+    // give winner
+    let jsonStr = JSON.stringify({
+      "type": "give_winner",
+      "idList": [busIdWinner],
+      "businessTable": businessTable
+    });
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN && roomObj.userList.includes(client.userId)) {
+        client.send(jsonStr);
+      }
+    });
     return;
   }
   let pair = roomObj.keyPairList[roomObj.roundNum];
