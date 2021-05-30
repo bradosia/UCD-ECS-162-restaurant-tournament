@@ -15,7 +15,7 @@
     "react-dom": "^16.13.1",
     "sqlite3": "^4.2.0",
     "websocket": "^1.0.31",
-    "ws": "^7.3.0",
+    "ws": "^7.4.6",
     "yelp-fusion": "^3.0.0"
   },
   "engines": {
